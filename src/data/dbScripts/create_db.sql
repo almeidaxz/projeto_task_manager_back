@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `task` (
     `date` VARCHAR(10) NOT NULL,
     `time` VARCHAR(5) NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `reminder` (
@@ -30,5 +30,5 @@ CREATE TABLE IF NOT EXISTS `reminder` (
     `date` VARCHAR(10) NOT NULL,
     `time` VARCHAR(5) NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
