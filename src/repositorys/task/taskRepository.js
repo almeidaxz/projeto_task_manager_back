@@ -5,8 +5,13 @@ class TaskRepository {
         return await knex('task').where({ id }).first().returning('*');
     }
 
-    async createTask(task) {
-        return await knex('task').insert(task).returning('*');
+    async createTask(task, user_id) {
+        const { id, name, description, category, date, time } = task;
+        return await knex('task').insert({ id, name, description, category, date, time, user_id }).returning('*');
+    }
+
+    async listTasks(id) {
+        return await knex('task').where({ id });
     }
 
     async updateTask(task, id) {

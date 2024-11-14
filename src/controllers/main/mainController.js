@@ -1,16 +1,14 @@
+const mainService = require('../../services/main/mainService');
+
 class MainController {
     async listTasksAndReminders(req, res) {
-        const { id } = req.params;
+        // const user_id = req.user.id
+        const user_id = 1
         try {
-            const tasks = await knex('tasks').where({ id })
-            const reminders = await knex('reminders').where({ id })
-            const tasksRemindersList = {
-                tasks,
-                reminders
-            }
+            const tasksRemindersList = await mainService.listTasksAndReminders(user_id);
             return res.status(200).json(tasksRemindersList)
         } catch (error) {
-            return res.status(error.status).json(error.message)
+            return res.status(error.code).json(error.message)
         }
     }
 }

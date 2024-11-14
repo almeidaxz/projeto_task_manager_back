@@ -1,34 +1,43 @@
-CREATE DATABASE IF NOT EXISTS `task_manager` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- Criação do banco de dados. O banco utilizado foi o PostgreSQL 15.8, hospedado na cloud TEMBO.
+-- Caso o DB utilizado não suporte a sintaxe à seguir, fazer alterações de acordo
+CREATE DATABASE "task_manager"
+WITH ENCODING = 'UTF8'
+LC_COLLATE = 'en_US.utf8'
+LC_CTYPE = 'en_US.utf8'
+TEMPLATE = template0;
 
-USE `task_manager`;
+\c task_manager;
 
-CREATE TABLE IF NOT EXISTS `user` (
-    `id` INT(1) NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(65) NOT NULL,
-    `email` VARCHAR(65) NOT NULL,
-    `password` VARCHAR(65) NOT NULL,
-    PRIMARY KEY (`id`)
+
+-- Criação da tabela de usuários
+CREATE TABLE IF NOT EXISTS "user" (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(65) NOT NULL,
+    "email" VARCHAR(65) NOT NULL,
+    "password" VARCHAR(65) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS `task` (
-    `id` INT(1) NOT NULL AUTO_INCREMENT,
-    `user_id` INT(1) NOT NULL,
-    `name` VARCHAR(65) NOT NULL,
-    `description` VARCHAR(255) NULL,
-    `category` VARCHAR(120) NULL,
-    `date` VARCHAR(10) NOT NULL,
-    `time` VARCHAR(5) NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+
+-- Criação das tabelas de tarefas e referência para a tabela de usuários
+CREATE TABLE IF NOT EXISTS "task" (
+    "id" SERIAL PRIMARY KEY,
+    "user_id" INT NOT NULL,
+    "name" VARCHAR(65) NOT NULL,
+    "description" VARCHAR(255),
+    "category" VARCHAR(120),
+    "date" VARCHAR(10) NOT NULL,
+    "time" VARCHAR(5) NOT NULL,
+    FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS `reminder` (
-    `id` INT(1) NOT NULL AUTO_INCREMENT,
-    `user_id` INT(1) NOT NULL,
-    `name` VARCHAR(65) NOT NULL,
-    `description` VARCHAR(255) NULL,
-    `date` VARCHAR(10) NOT NULL,
-    `time` VARCHAR(5) NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+
+-- Criação da tabela de lembartes e referência para a tabela de usuários
+CREATE TABLE IF NOT EXISTS "reminder" (
+    "id" SERIAL PRIMARY KEY,
+    "user_id" INT NOT NULL,
+    "name" VARCHAR(65) NOT NULL,
+    "description" VARCHAR(255),
+    "date" VARCHAR(10) NOT NULL,
+    "time" VARCHAR(5) NOT NULL,
+    FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE
 );

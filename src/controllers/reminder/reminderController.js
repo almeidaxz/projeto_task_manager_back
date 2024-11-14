@@ -7,7 +7,7 @@ class ReminderService {
             reminderService.createReminder({ name, description, date, time });
             return res.status(201).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -18,7 +18,7 @@ class ReminderService {
             reminderService.updateReminder({ id, name, description, date, time }, id);
             return res.status(204).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -28,7 +28,7 @@ class ReminderService {
             const reminder = await reminderService.detailReminder(id);
             return res.status(200).json(reminder);
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -38,7 +38,7 @@ class ReminderService {
             userService.deleteReminder(id);
             return res.status(204).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 }

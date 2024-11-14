@@ -7,7 +7,7 @@ class UserController {
             userService.createUser({ name, email, password });
             return res.status(201).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -17,7 +17,7 @@ class UserController {
             userService.loginUser({ email, password });
             return res.status(204).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -27,7 +27,7 @@ class UserController {
             const user = await userService.detailUser(id);
             return res.status(200).json(user);
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -37,7 +37,7 @@ class UserController {
             userService.updateUser({ name, email, password });
             return res.status(204).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -47,7 +47,7 @@ class UserController {
             userService.deleteUser(id);
             return res.status(204).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 }

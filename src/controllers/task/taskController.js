@@ -3,11 +3,12 @@ const taskService = require('../../services/task/taskService');
 class TaskController {
     async createTask(req, res) {
         try {
+            const user_id = 1
             const { name, description, category, date, time } = req.body;
-            taskService.createTask({ name, description, category, date, time });
+            taskService.createTask({ name, description, category, date, time }, user_id);
             return res.status(201).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(500).json(error.message);
         }
     }
 
@@ -18,7 +19,7 @@ class TaskController {
             taskService.updateTask({ id, name, description, category, date, time }, id);
             return res.status(204).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -28,7 +29,7 @@ class TaskController {
             const task = await taskService.detailTask(id);
             return res.status(200).json(task);
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 
@@ -38,7 +39,7 @@ class TaskController {
             taskService.deleteTask(id);
             return res.status(204).json();
         } catch (error) {
-            return res.status(error.status).json(error.message);
+            return res.status(error.code).json(error.message);
         }
     }
 }

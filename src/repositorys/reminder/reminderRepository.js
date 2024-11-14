@@ -2,11 +2,16 @@ const { knex } = require('../../data/connection/dbConfig');
 
 class ReminderRepository {
     async getReminderById(id) {
-        return await knex('reminder').where({ id }).first().returning('*');
+        return await knex('reminder').where({ id }).first();
     }
 
     async createReminder(reminder) {
         return await knex('reminder').insert(reminder).returning('*');
+    }
+
+
+    async listReminders(id) {
+        return await knex('reminder').where({ id });
     }
 
     async updateReminder(reminder, id) {
