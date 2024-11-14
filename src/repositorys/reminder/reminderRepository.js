@@ -1,4 +1,4 @@
-const { knex } = require('../../connection/dbConfig');
+const { knex } = require('../../data/connection/dbConfig');
 
 class ReminderRepository {
     async getReminderById(id) {
