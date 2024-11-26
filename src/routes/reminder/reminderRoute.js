@@ -9,9 +9,9 @@ const checkAuthorization = require("../../middlewares/auth");
 
 const reminderRoutes = express();
 
-// reminderRoutes.use(checkAuthorization);
+reminderRoutes.use(checkAuthorization);
 reminderRoutes.get("/:id", reminderController.detailReminder);
-reminderRoutes.delete("/:id", reminderController.deleteReminder);
+reminderRoutes.delete("/", reminderController.deleteReminder);
 reminderRoutes.post("/", checkBody(registerReminderSchema), reminderController.createReminder);
 reminderRoutes.put("/:id", checkBody(editReminderSchema), reminderController.updateReminder);
 

@@ -56,7 +56,8 @@ const editTaskSchema = joi.object({
     description: joi.string().allow('', null).optional().min(10).messages(errorDescription),
     categories: joi.string().allow('', null).optional().pattern(categoriesRegex).messages(errorCategories),
     due_date: joi.string().required().pattern(dateRegex).empty().messages(errorDueDate),
-    due_time: joi.string().required().pattern(timeRegex).messages(errorDueTime)
+    due_time: joi.string().required().pattern(timeRegex).messages(errorDueTime),
+    is_done: joi.boolean().optional()
 });
 
 module.exports = { registerTaskSchema, editTaskSchema }

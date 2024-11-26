@@ -7,7 +7,7 @@ class ReminderController {
             const newReminder = await reminderService.createReminder(reminder);
             return res.status(201).json(newReminder);
         } catch (error) {
-            return res.status(error.code).json(error.message);
+            return res.status(error.statusCode).json(error.message);
         }
     }
 
@@ -18,31 +18,36 @@ class ReminderController {
             const updatedReminder = await reminderService.updateReminder(reminder, id);
             return res.status(200).json(updatedReminder);
         } catch (error) {
-            return res.status(error.code).json(error.message);
+            return res.status(error.statusCode).json(error.message);
         }
     }
 
     async detailReminder(req, res) {
         const { id } = req.params;
-        const user_id = 1;
-        // const user_id = req.user.id;
+        const user_id = req.user.id;
         try {
             const reminder = await reminderService.detailReminder(id, user_id);
             return res.status(200).json(reminder);
         } catch (error) {
-            return res.status(error.code).json(error.message);
+            return res.status(error.statusCode).json(error.message);
         }
     }
 
     async deleteReminder(req, res) {
-        const { id } = req.params;
-        const user_id = 1;
-        // const user_id = req.user.id;
+        const user_id = req.user.id;
+        const query = req.query;
+        const idList = [];
+
+        for (const [key, value] of Object.entries(query)) {
+            idList.push(value);
+        }
+
         try {
-            const reminder = await reminderService.deleteReminder(id, user_id);
+            const reminder = await reminderService.deleteReminders(idList, user_id);
             return res.status(200).json(reminder);
         } catch (error) {
-            return res.status(error.code).json(error.message);
+            console.log(error)
+            return res.status(error.statusCode).json(error.message);
         }
     }
 }

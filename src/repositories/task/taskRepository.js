@@ -1,8 +1,13 @@
 const knex = require('../../data/connection/dbConfig');
 
 class TaskRepository {
-    async getTaskById(id) {
-        return await knex('task').where({ id }).first();
+    async getTaskById(id, user_id) {
+        return await knex('task').where({ id, user_id }).first();
+    }
+
+    async getTaskListById(idsList, user_id) {
+        const foundTasks = await knex('task').whereIn('id', idsList).where({ user_id });
+        return foundTasks;
     }
 
     async createTask(task) {
@@ -16,14 +21,26 @@ class TaskRepository {
     }
 
     async updateTask(task, id) {
-        const { name, description, categories, due_date, due_time, user_id } = task;
-        const updatedTask = await knex('task').where({ id }).update({ id, name, description, categories, due_date, due_time, user_id }).returning('*');
+        const { name, description, categories, due_date, due_time, user_id, is_done } = task;
+        const updatedTask = await knex('task').where({ id }).update({ id, name, description, categories, due_date, due_time, user_id, is_done }).returning('*');
         return updatedTask[0];
     }
 
     async deleteTask(id) {
         const deletedTask = await knex('task').where({ id }).del().returning('*');
         return deletedTask[0];
+    }
+
+    async deleteTasks(idsList, user_id) {
+        try {
+            const trx = await knex.transaction();
+            const tasks = await trx('task').whereIn('id', idsList).where({ user_id }).del().returning('*');
+            await trx.commit();
+            return tasks;
+        } catch (error) {
+            await trx.rollback();
+            throw error;
+        }
     }
 }
 

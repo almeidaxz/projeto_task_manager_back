@@ -45,7 +45,7 @@ timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 const registerReminderSchema = joi.object({
     user_id: joi.number().integer().positive().greater(0).required().messages(errorUserId),
     name: joi.string().required().empty().min(4).messages(errorName),
-    description: joi.string().optional().min(10).messages(errorDescription),
+    description: joi.string().allow('', null).optional().messages(errorDescription),
     due_date: joi.string().required().pattern(dateRegex).empty().messages(errorDueDate),
     due_time: joi.string().required().pattern(timeRegex).messages(errorDueTime)
 });
@@ -53,7 +53,7 @@ const registerReminderSchema = joi.object({
 const editReminderSchema = joi.object({
     user_id: joi.number().integer().positive().greater(0).required().messages(errorUserId),
     name: joi.string().required().empty().min(4).messages(errorName),
-    description: joi.string().optional().min(10).messages(errorDescription),
+    description: joi.string().allow('', null).optional().messages(errorDescription),
     due_date: joi.string().required().pattern(dateRegex).empty().messages(errorDueDate),
     due_time: joi.string().required().pattern(timeRegex).messages(errorDueTime)
 });

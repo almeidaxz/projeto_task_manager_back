@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS "task" (
     "categories" VARCHAR(120),
     "due_date" VARCHAR(10) NOT NULL,
     "due_time" VARCHAR(5) NOT NULL,
+    "is_done" BOOLEAN NOT NULL DEFAULT false,
     FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE
 );
 

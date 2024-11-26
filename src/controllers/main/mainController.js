@@ -2,8 +2,7 @@ const mainService = require('../../services/main/mainService');
 
 class MainController {
     async listTasksAndReminders(req, res) {
-        // const { id: user_id } = req.params;
-        const user_id = 1
+        const user_id = req.user.id
         try {
             const tasksRemindersList = await mainService.listTasksAndReminders(user_id);
             return res.status(200).json(tasksRemindersList)

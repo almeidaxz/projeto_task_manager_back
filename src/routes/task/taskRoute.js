@@ -9,9 +9,9 @@ const checkAuthorization = require('../../middlewares/auth');
 
 const taskRoutes = express();
 
-// taskRoutes.use(checkAuthorization);
+taskRoutes.use(checkAuthorization);
 taskRoutes.get('/:id', taskController.detailTask);
-taskRoutes.delete('/:id', taskController.deleteTask);
+taskRoutes.delete('/', taskController.deleteTask);
 taskRoutes.post('/', checkBody(registerTaskSchema), taskController.createTask);
 taskRoutes.put('/:id', checkBody(editTaskSchema), taskController.updateTask);
 

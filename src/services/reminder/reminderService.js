@@ -44,18 +44,26 @@ class ReminderService {
         }
     }
 
-    async deleteReminder(id, user_id) {
+
+    async deleteReminders(idsList, user_id) {
         const responseObject = { success: false, errors: [], response: null };
         try {
-            const existingReminder = await reminderRepository.getReminderById(id, user_id);
-            if (!existingReminder) throw new errorHandler.notFound('Tarefa não encontrada');
-            const deletedReminder = await reminderRepository.deleteReminder(id, user_id);
-            if (!deletedReminder) throw new errorHandler.internalError('Erro ao deletar tarefa.');
-            return { ...responseObject, success: true, response: deletedReminder };
+            const foundReminders = [];
+            const existingReminders = await reminderRepository.getReminderListById(idsList, user_id);
+            for (const reminder of existingReminders) {
+                const reminderFound = existingReminders.find(t => t.id == reminder.id);
+                if (reminderFound)
+                    foundReminders.push(reminderFound.id);
+            }
+            if (existingReminders.length != idsList.length) responseObject.errors.push(`Apenas o(s) lembretes(s) de id ${foundReminders.join(', ')} foi(ram) encontrada(s). Somente esse(s) foi(ram) excluído(s).`);
+            const deletedReminders = await reminderRepository.deleteReminders(idsList, user_id);
+            if (!deletedReminders.length) throw new errorHandler.internalError('Erro ao deletar um ou mais lembretes. O estado anterior será retornado.');
+            return { ...responseObject, success: true, response: deletedReminders };
         } catch (error) {
             if (error instanceof DatabaseError) responseObject.errors.push("Erro na conexão com o banco de dados.");
+            console.log(error)
             responseObject.errors.push(error.message);
-            return responseObject
+            return responseObject;
         }
     }
 }

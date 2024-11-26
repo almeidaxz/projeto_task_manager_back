@@ -28,8 +28,8 @@ class UserService {
             const rightPassword = await compare(user.password, foundUser.password);
             if (!rightPassword || !foundUser) throw new errorHandler.unauthorized('Email ou senha inválidos');
             const token = sign(
-                { id: user.id, username: user.name, email: user.email },
-                process.env.JWT_PASSWORD,
+                { id: foundUser.id, name: foundUser.name, email: foundUser.email },
+                process.env.JWT_SECRET,
                 { expiresIn: '8h' }
             );
             const { password: _, ...userData } = foundUser

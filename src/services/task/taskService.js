@@ -16,10 +16,10 @@ class TaskService {
         }
     }
 
-    async detailTask(id) {
+    async detailTask(id, user_id) {
         const responseObject = { success: false, errors: [], response: null };
         try {
-            const existingTask = await taskRepository.getTaskById(id);
+            const existingTask = await taskRepository.getTaskById(id, user_id);
             if (!existingTask) throw new errorHandler.notFound('Tarefa não encontrada');
             return { ...responseObject, success: true, response: existingTask };
         } catch (error) {
@@ -32,7 +32,7 @@ class TaskService {
     async updateTask(task, id) {
         const responseObject = { success: false, errors: [], response: null };
         try {
-            const existingTask = await taskRepository.getTaskById(id);
+            const existingTask = await taskRepository.getTaskById(id, task.user_id);
             if (!existingTask) throw new errorHandler.notFound('Tarefa não encontrada');
             const updatedTask = await taskRepository.updateTask(task, id);
             if (!updatedTask) throw new errorHandler.internalError('Erro ao atualizar tarefa.');
@@ -44,14 +44,20 @@ class TaskService {
         }
     }
 
-    async deleteTask(id) {
+    async deleteTasks(idsList, user_id) {
         const responseObject = { success: false, errors: [], response: null };
         try {
-            const existingTask = await taskRepository.getTaskById(id);
-            if (!existingTask) throw new errorHandler.notFound('Tarefa não encontrada');
-            const deletedTask = await taskRepository.deleteTask(id);
-            if (!deletedTask) throw new errorHandler.internalError('Erro ao deletar tarefa.');
-            return { ...responseObject, success: true, response: deletedTask };
+            const foundTasks = [];
+            const existingTask = await taskRepository.getTaskListById(idsList, user_id);
+            for (const task of existingTask) {
+                const taskFound = existingTask.find(t => t.id == task.id);
+                if (taskFound)
+                    foundTasks.push(taskFound.id);
+            }
+            if (existingTask.length != idsList.length) responseObject.errors.push(`Apenas a(s) tarefa(s) de id ${foundTasks.join(', ')} foi(ram) encontrada(s). Somente essa(s) foi(ram) excluída(s).`);
+            const deletedTasks = await taskRepository.deleteTasks(idsList, user_id);
+            if (!deletedTasks.length) throw new errorHandler.internalError('Erro ao deletar uma ou mais tarefas. O estado anterior será retornado.');
+            return { ...responseObject, success: true, response: deletedTasks };
         } catch (error) {
             if (error instanceof DatabaseError) responseObject.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);

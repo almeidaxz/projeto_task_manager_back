@@ -5,6 +5,11 @@ class ReminderRepository {
         return await knex('reminder').where({ id, user_id }).first();
     }
 
+    async getReminderListById(idsList, user_id) {
+        const foundReminders = await knex('reminder').whereIn('id', idsList).where({ user_id });
+        return foundReminders;
+    }
+
     async createReminder(reminder) {
         const newReminder = await knex('reminder').insert(reminder).returning('*');
         return newReminder[0];
@@ -21,9 +26,16 @@ class ReminderRepository {
         return updatedReminder[0];
     }
 
-    async deleteReminder(id, user_id) {
-        const deletedReminder = await knex('reminder').where({ id, user_id }).del().returning('*');
-        return deletedReminder[0];
+    async deleteReminders(idsList, user_id) {
+        try {
+            const trx = await knex.transaction();
+            const reminders = await trx('reminder').whereIn('id', idsList).where({ user_id }).del().returning('*');
+            await trx.commit();
+            return reminders;
+        } catch (error) {
+            await trx.rollback();
+            throw error;
+        }
     }
 }
 

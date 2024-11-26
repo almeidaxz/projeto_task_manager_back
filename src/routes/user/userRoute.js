@@ -11,7 +11,7 @@ const userRoutes = express();
 
 userRoutes.post('/', checkBody(registerUserSchema), userController.createUser);
 userRoutes.post('/login', checkBody(loginUserSchema), userController.userLogin);
-// userRoutes.use(checkAuthorization);
+userRoutes.use(checkAuthorization);
 userRoutes.get('/:id', userController.detailUser);
 userRoutes.delete('/:id', userController.deleteUser);
 userRoutes.put('/:id', checkBody(editUserSchema), userController.updateUser);
