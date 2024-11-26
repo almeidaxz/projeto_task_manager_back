@@ -25,8 +25,9 @@ class UserService {
         const responseObject = { success: false, errors: [], response: null };
         try {
             const foundUser = await userRepository.getUserByEmail(user.email);
+            if (!foundUser) throw new errorHandler.unauthorized('Email ou senha inválidos');
             const rightPassword = await compare(user.password, foundUser.password);
-            if (!rightPassword || !foundUser) throw new errorHandler.unauthorized('Email ou senha inválidos');
+            if (!rightPassword) throw new errorHandler.unauthorized('Email ou senha inválidos');
             const token = sign(
                 { id: foundUser.id, name: foundUser.name, email: foundUser.email },
                 process.env.JWT_SECRET,
