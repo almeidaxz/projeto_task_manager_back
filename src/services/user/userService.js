@@ -6,7 +6,7 @@ const { sign } = require('jsonwebtoken');
 
 class UserService {
     async createUser(user) {
-        const responseObject = { success: false, errors: [], response: null };
+        const responseObject = { success: false, errors: [], response: null, statusCode: null };
         try {
             const existingUser = await userRepository.getUserByEmail(user.email);
             if (existingUser) throw new errorHandler.conflict('Usuário já cadastrado');
@@ -17,12 +17,13 @@ class UserService {
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
+            responseObject.statusCode = error.statusCode;
             return responseObject
         }
     }
 
     async loginUser(user) {
-        const responseObject = { success: false, errors: [], response: null };
+        const responseObject = { success: false, errors: [], response: null, statusCode: null };
         try {
             const foundUser = await userRepository.getUserByEmail(user.email);
             if (!foundUser) throw new errorHandler.unauthorized('Email ou senha inválidos');
@@ -38,12 +39,13 @@ class UserService {
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
+            responseObject.statusCode = error.statusCode;
             return responseObject
         }
     }
 
     async detailUser(id) {
-        const responseObject = { success: false, errors: [], response: null };
+        const responseObject = { success: false, errors: [], response: null, statusCode: null };
         try {
             const existingUser = await userRepository.getUserById(id);
             if (!existingUser) throw new errorHandler.notFound('Usuário não encontrado');
@@ -51,6 +53,7 @@ class UserService {
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
+            responseObject.statusCode = error.statusCode;
             return responseObject
         }
     }
@@ -69,6 +72,7 @@ class UserService {
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
+            responseObject.statusCode = error.statusCode;
             return responseObject
         }
     }
@@ -84,6 +88,7 @@ class UserService {
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
+            responseObject.statusCode = error.statusCode;
             return responseObject
         }
     }
