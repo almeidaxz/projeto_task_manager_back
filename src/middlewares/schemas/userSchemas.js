@@ -7,8 +7,6 @@ const errorEmail = {
 }
 
 const errorPassword = {
-    'any.required': 'A senha deve ser informada.',
-    'string.empty': 'A senha deve ser informada.',
     'string.min': 'A senha deve ter no mínimo 4 caracteres.',
 }
 
@@ -33,7 +31,7 @@ const loginUserSchema = joi.object({
 
 const editUserSchema = joi.object({
     email: joi.string().required().empty().email().messages(errorEmail),
-    password: joi.string().required().empty().min(4).messages(errorPassword),
+    password: joi.string().allow('', null).optional().min(4).messages(errorPassword),
     name: joi.string().required().empty().pattern(fullNameRegex).messages(errorFullName),
 });
 

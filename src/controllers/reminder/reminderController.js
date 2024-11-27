@@ -46,7 +46,6 @@ class ReminderController {
             const reminder = await reminderService.deleteReminders(idList, user_id);
             return res.status(200).json(reminder);
         } catch (error) {
-            console.log(error)
             return res.status(error.statusCode).json(error.message);
         }
     }

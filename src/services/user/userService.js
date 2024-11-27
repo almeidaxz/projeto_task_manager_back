@@ -13,7 +13,7 @@ class UserService {
             user.password = await hash(user.password, 10);
             const createdUser = await userRepository.createUser(user);
             if (!createdUser) throw new errorHandler.internalError('Erro ao criar usuário.');
-            return { ...responseObject, success: true, response: createdUser };
+            return { ...responseObject, success: true, response: createdUser, statusCode: 201 };
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
@@ -35,7 +35,7 @@ class UserService {
                 { expiresIn: '8h' }
             );
             const { password: _, ...userData } = foundUser
-            return { ...responseObject, success: true, response: { token, user: userData } };
+            return { ...responseObject, success: true, response: { token, user: userData }, statusCode: 200 };
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
@@ -49,7 +49,7 @@ class UserService {
         try {
             const existingUser = await userRepository.getUserById(id);
             if (!existingUser) throw new errorHandler.notFound('Usuário não encontrado');
-            return { ...responseObject, success: true, response: existingUser };
+            return { ...responseObject, success: true, response: existingUser, statusCode: 200 };
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
@@ -59,7 +59,7 @@ class UserService {
     }
 
     async updateUser(user, id) {
-        const responseObject = { success: false, errors: [], response: null };
+        const responseObject = { success: false, errors: [], response: null, statusCode: null };
         try {
             const existingUser = await userRepository.getUserById(id);
             if (!existingUser) throw new errorHandler.notFound('Usuário não encontrado');
@@ -68,7 +68,7 @@ class UserService {
             user.password = await hash(user.password, 10);
             const updatedUser = await userRepository.updateUser(user, id);
             if (!updatedUser) throw new errorHandler.internalError('Erro ao atualizar usuário.');
-            return { ...responseObject, success: true, response: updatedUser };
+            return { ...responseObject, success: true, response: updatedUser, statusCode: 200 };
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);
@@ -78,13 +78,13 @@ class UserService {
     }
 
     async deleteUser(id) {
-        const responseObject = { success: false, errors: [], response: null };
+        const responseObject = { success: false, errors: [], response: null, statusCode: null };
         try {
             const existingUser = await userRepository.getUserById(id);
             if (!existingUser) throw new errorHandler.notFound('Usuário não encontrado');
             const deletedUser = await userRepository.deleteUser(id);
             if (!deletedUser) throw new errorHandler.internalError('Erro ao deletar usuário.');
-            return { ...responseObject, success: true, response: deletedUser };
+            return { ...responseObject, success: true, response: deletedUser, statusCode: 200 };
         } catch (error) {
             if (error instanceof DatabaseError) response.errors.push("Erro na conexão com o banco de dados.");
             responseObject.errors.push(error.message);

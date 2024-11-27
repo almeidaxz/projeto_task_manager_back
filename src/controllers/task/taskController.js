@@ -46,7 +46,6 @@ class TaskController {
 
         try {
             const task = await taskService.deleteTasks(idList, user_id);
-            console.log(task);
             return res.status(200).json(task);
         } catch (error) {
             return res.status(error.code).json(error.message);
