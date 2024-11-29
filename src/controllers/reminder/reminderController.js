@@ -1,6 +1,8 @@
 const reminderService = require('../../services/reminder/reminderService');
 
+// Controlador para a entidade Reminder (lembrete). Aqui são chamadas as funções do serviço.
 class ReminderController {
+    // Responde com o novo lembrete criado ou um erro.
     async createReminder(req, res) {
         const reminder = req.body;
         try {
@@ -11,6 +13,7 @@ class ReminderController {
         }
     }
 
+    // Responde com o lembrete atualizado ou um erro.
     async updateReminder(req, res) {
         const { id } = req.params;
         const reminder = req.body;
@@ -22,6 +25,7 @@ class ReminderController {
         }
     }
 
+    // Responde com o lembrete ou um erro.
     async detailReminder(req, res) {
         const { id } = req.params;
         const user_id = req.user.id;
@@ -33,6 +37,7 @@ class ReminderController {
         }
     }
 
+    // Responde com a lista de lembretes excluídos ou um erro.
     async deleteReminder(req, res) {
         const user_id = req.user.id;
         const query = req.query;

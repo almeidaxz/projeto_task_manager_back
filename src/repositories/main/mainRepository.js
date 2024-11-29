@@ -2,10 +2,9 @@ const knex = require('../../data/connection/dbConfig');
 const taskRepository = require('../task/taskRepository');
 const reminderRepository = require('../reminder/reminderRepository');
 
-const { DatabaseError } = require('pg');
-const { dbError } = require('../../errors/errors');
-
+// Repositório para a entidade Main (que representa a home da aplicação).
 class MainRepository {
+    // Busca as tarefas e lembretes de um determinado usuário. Utiliza Promisse.all para executar as duas consultas simultaneamente e retorna para o Service o resultado.
     async listTasksAndReminders(user_id) {
         return await Promise.all([taskRepository.listTasks(user_id), reminderRepository.listReminders(user_id)]);
     }

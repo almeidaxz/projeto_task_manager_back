@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+// Configura a conexão do QueryBuilder Knex com o banco de dados utilizando a biblioteca PG.
 const knex = require('knex')({
   client: 'pg',
   connection: {

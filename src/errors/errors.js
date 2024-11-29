@@ -1,5 +1,6 @@
 const { DatabaseError } = require("pg");
 
+// Error handler com classes de erros costumizadas
 class badRequest extends Error {
     constructor(message) {
         super(message);

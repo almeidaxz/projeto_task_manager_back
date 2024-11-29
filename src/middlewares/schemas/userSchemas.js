@@ -1,5 +1,6 @@
 const joi = require('joi');
 
+// Mensagens de erro utilizadas pelo validador de schema JOI.
 const errorEmail = {
     'any.required': 'O email deve ser informado.',
     'string.email': `O email deve ser um email válido no formato 'usuario@dominio.com'.`,
@@ -16,8 +17,10 @@ const errorFullName = {
     'string.pattern.base': 'O nome completo deve ser informado (nome e sobrenome, sem números).',
 }
 
+// Regex utilizadas pelo validador de schema JOI.
 fullNameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['-][A-Za-zÀ-ÖØ-öø-ÿ]+)* [A-Za-zÀ-ÖØ-öø-ÿ]+(?:['-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
 
+// Validações de schemas para cadastro, login e edição de usuários.
 const registerUserSchema = joi.object({
     name: joi.string().required().empty().pattern(fullNameRegex).messages(errorFullName),
     email: joi.string().required().empty().email().messages(errorEmail),

@@ -1,4 +1,4 @@
--- Criação do banco de dados. O banco utilizado foi o PostgreSQL 15.8, hospedado na cloud TEMBO.
+-- Criação do banco de dados. O banco utilizado foi o PostgreSQL 15.8, hospedado localmente.
 -- Caso o DB utilizado não suporte a sintaxe à seguir, fazer alterações de acordo
 CREATE DATABASE "task_manager"
 WITH ENCODING = 'UTF8'

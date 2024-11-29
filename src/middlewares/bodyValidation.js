@@ -1,3 +1,4 @@
+// Intermediário que valida o conteúdo do corpo da requisição. É solicitado em todas as rotas que recebem dados no seu corpo.
 const checkBody = joiSchema => async (req, res, next) => {
     try {
         await joiSchema.validateAsync(req.body);

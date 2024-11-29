@@ -1,5 +1,6 @@
 const joi = require('joi');
 
+// Mensagens de erro utilizadas pelo validador de schema JOI.
 const errorId = {
     'any.required': 'O id do lembrete deve ser um número inteiro e positivo acima de 0.',
     'number.integer': 'O id do lembrete deve ser um número inteiro e positivo acima de 0.',
@@ -39,9 +40,11 @@ const errorDueTime = {
 
 }
 
+// Regex utilizadas pelo validador de schema JOI.
 dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 
+// Validações de schemas de cadastro e edição de lembretes.
 const registerReminderSchema = joi.object({
     user_id: joi.number().integer().positive().greater(0).required().messages(errorUserId),
     name: joi.string().required().empty().min(4).messages(errorName),

@@ -1,5 +1,6 @@
 const joi = require('joi');
 
+// Mensagens de erro utilizadas pelo validador de schema JOI.
 const errorUserId = {
     'any.required': 'O id do usuário deve ser um número inteiro e positivo acima de 0.',
     'number.integer': 'O id do usuário deve ser um número inteiro e positivo acima de 0.',
@@ -37,10 +38,12 @@ const errorDueTime = {
 
 }
 
+// Regex utilizadas pelo validador de schema JOI.
 categoriesRegex = /^[a-zA-Z]+(,[a-zA-Z]+)*$/;
 dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
 timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 
+// Validações de schemas para cadastro e edição de tarefas.
 const registerTaskSchema = joi.object({
     user_id: joi.number().integer().positive().greater(0).required().messages(errorUserId),
     name: joi.string().required().empty().min(4).messages(errorName),

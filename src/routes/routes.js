@@ -4,6 +4,7 @@ const userRoutes = require('./user/userRoute');
 const reminderRoutes = require('./reminder/reminderRoute');
 const mainRoutes = require('./main/mainRoute');
 
+// Rotas principais. Importa as rotas modularizadas de cada entidade.
 const router = express();
 
 router.use('/user', userRoutes);
