@@ -13,7 +13,13 @@
 					"name": "List Tasks and Reminders",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_path}}/main",
 							"host": [
@@ -35,7 +41,13 @@
 					"name": "Create Task",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{ \r\n    \"user_id\": 1,\r\n    \"name\": \"Tarefa 1\", \r\n    \"description\": \"Descrição da tarefa 1\", \r\n    \"categories\": \"\", \r\n    \"due_date\": \"14/11/2024\", \r\n    \"due_time\": \"09:00\"\r\n} ",
@@ -62,7 +74,13 @@
 					"name": "UpdateTask",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{ \r\n    \"user_id\": 2,\r\n    \"name\": \"Tarefa 1 atualizada\", \r\n    \"description\": \"Descrição da tarefa 1 atualizada\", \r\n    \"categories\": \"faculdade,teste\", \r\n    \"due_date\": \"15/02/2024\", \r\n    \"due_time\": \"00:00\"\r\n} ",
@@ -89,7 +107,13 @@
 					"name": "Detail Task",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_path}}/task/8",
 							"host": [
@@ -107,7 +131,13 @@
 					"name": "Delete Task",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_path}}/task/7",
 							"host": [
@@ -130,7 +160,13 @@
 					"name": "Create Reminder",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{ \r\n    \"user_id\": 1,\r\n    \"name\": \"Lembrete 1\", \r\n    \"description\": \"Descrição do lembrete 1\", \r\n    \"due_date\": \"14/11/2024\", \r\n    \"due_time\": \"09:00\"\r\n} ",
@@ -157,7 +193,13 @@
 					"name": "Update Reminder",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{ \r\n    \"user_id\": 1,\r\n    \"name\": \"Lembrete 1 atualizado 2\", \r\n    \"description\": \"Descrição do lembrete 1 atualizado 2\", \r\n    \"due_date\": \"14/11/2023\", \r\n    \"due_time\": \"03:00\"\r\n} ",
@@ -184,7 +226,13 @@
 					"name": "Detail Reminder",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_path}}/reminder/12",
 							"host": [
@@ -202,15 +250,27 @@
 					"name": "Delete Reminder",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{base_path}}/reminder/13",
+							"raw": "{{base_path}}/reminder/13?",
 							"host": [
 								"{{base_path}}"
 							],
 							"path": [
 								"reminder",
 								"13"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
 							]
 						}
 					},
@@ -252,7 +312,13 @@
 					"name": "Update User",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{ \r\n    \"name\": \"Lucas Almeida Braz\", \r\n    \"email\": \"lucas.bra6@gmail.com\", \r\n    \"password\": \"umasenhaqualquer\"\r\n}",
@@ -306,7 +372,13 @@
 					"name": "Detail User",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_path}}/user/1",
 							"host": [
@@ -315,6 +387,13 @@
 							"path": [
 								"user",
 								"1"
+							],
+							"query": [
+								{
+									"key": "Authentication",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -324,7 +403,13 @@
 					"name": "Delete User",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{base_path}}/user/2",
 							"host": [
@@ -333,6 +418,13 @@
 							"path": [
 								"user",
 								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -366,7 +458,7 @@
 	"variable": [
 		{
 			"key": "base_path",
-			"value": "localhost:3000",
+			"value": "localhost:8000",
 			"type": "string"
 		}
 	]
