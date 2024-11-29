@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const userRepository = require('../repositories/user/userRepository');
+const userRepository = require('../data/repositories/user/userRepository');
 
 // Intermediário que valida a existência e validade do token JWT. É solicitado em todas as rotas que exigem autenticação.
 async function checkAuthorization(req, res, next) {

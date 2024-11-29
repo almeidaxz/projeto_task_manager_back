@@ -1,5 +1,5 @@
-const taskRepository = require('../../repositories/task/taskRepository');
-const errorHandler = require('../../errors/errors');
+const taskRepository = require('../../data/repositories/task/taskRepository');
+const errorHandler = require('../../handlers/errors/errors');
 const { DatabaseError } = require('pg');
 
 // Serviço para a entidade Task (tarefa). Aqui são chamadas as funções do repositório e validadas as regras de negócio.

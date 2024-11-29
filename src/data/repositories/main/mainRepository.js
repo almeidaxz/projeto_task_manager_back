@@ -1,4 +1,4 @@
-const knex = require('../../data/connection/dbConfig');
+const knex = require('../../connection/dbConfig');
 const taskRepository = require('../task/taskRepository');
 const reminderRepository = require('../reminder/reminderRepository');
 

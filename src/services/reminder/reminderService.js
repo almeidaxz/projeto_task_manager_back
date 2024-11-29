@@ -1,6 +1,6 @@
-const reminderRepository = require('../../repositories/reminder/reminderRepository');
+const reminderRepository = require('../../data/repositories/reminder/reminderRepository');
 const { DatabaseError } = require('pg');
-const errorHandler = require('../../errors/errors');
+const errorHandler = require('../../handlers/errors/errors');
 
 // Serviço para a entidade Reminder (lembrete). Aqui são chamadas as funções do repositório e validadas as regras de negócio.
 class ReminderService {

@@ -1,6 +1,6 @@
 const { DatabaseError } = require('pg');
-const mainRepository = require('../../repositories/main/mainRepository');
-const errorHandler = require('../../errors/errors');
+const mainRepository = require('../../data/repositories/main/mainRepository');
+const errorHandler = require('../../handlers/errors/errors');
 
 // Serviço para a entidade Main (que representa a home da aplicação). Aqui são chamadas as funções do repositório e validadas as regras de negócio.
 class MainService {

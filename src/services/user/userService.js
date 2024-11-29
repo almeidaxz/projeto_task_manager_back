@@ -1,5 +1,5 @@
-const userRepository = require('../../repositories/user/userRepository');
-const errorHandler = require('../../errors/errors');
+const userRepository = require('../../data/repositories/user/userRepository');
+const errorHandler = require('../../handlers/errors/errors');
 const { DatabaseError } = require('pg');
 const { hash, compare } = require('bcrypt');
 const { sign } = require('jsonwebtoken');
