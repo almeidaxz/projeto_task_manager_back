@@ -1,4 +1,4 @@
-const knex = require('../../data/connection/dbConfig');
+const knex = require('../../connection/dbConfig');
 
 // Repositório para a entidade User (usuário).
 class UserRepository {
