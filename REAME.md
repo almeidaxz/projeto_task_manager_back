@@ -2,7 +2,7 @@
 ## Aplicação de Gerenciamento de Tarefas e Lembretes
 
 ##### Entregas Obrigatórias:
-- Lucas Almeida Braz - Universidade Salvador - RA 1272322938
+- Lucas Almeida Braz - Universidade Salvador - RA 1272322938 / Como conversado com o professor Jeal-Paul, acabei desenvolvendo o projeto sozinho por não ter encontrado equipe à tempo.
 - [Link do vídeo mostrando o funcionamento da API](https://youtu.be/fJagLEqQKx0)
 - [Link do vídeo mostrando e explicando o código](https://youtu.be/DzXIkXl5y9A)
 - [Link do artigo](https://drive.google.com/file/d/1yBMxdZ5MZDpyXc3hhkdKgZU7Pvykp71y/view?usp=sharing)
