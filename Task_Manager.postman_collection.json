@@ -234,13 +234,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_path}}/reminder/12",
+							"raw": "{{base_path}}/reminder/22",
 							"host": [
 								"{{base_path}}"
 							],
 							"path": [
 								"reminder",
-								"12"
+								"22"
 							]
 						}
 					},
@@ -459,6 +459,11 @@
 		{
 			"key": "base_path",
 			"value": "localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsIm5hbWUiOiJMdWNhcyBCcmF6IiwiZW1haWwiOiJsdWNhcy5icmF6NUBnbWFpbC5jb20iLCJpYXQiOjE3MzI5MjQyNDcsImV4cCI6MTczMjk1MzA0N30.S9VDmA27BI0iTifXK9IE2_79-rf48-sTe3qeIx2Qzcc",
 			"type": "string"
 		}
 	]

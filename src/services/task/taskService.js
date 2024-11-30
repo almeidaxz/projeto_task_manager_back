@@ -67,14 +67,17 @@ class TaskService {
         try {
             // Adiciona os ids das tarefas que foram encontradas na lista de ids à serem excluídas.
             const foundTasks = [];
-            const existingTask = await taskRepository.getTaskListById(idsList, user_id);
-            for (const task of existingTask) {
-                const taskFound = existingTask.find(t => t.id == task.id);
+            console.log(idsList)
+            const existingTasks = await taskRepository.getTaskListById(idsList, user_id);
+            // Verifica se ao menos uma tarefa foi encontrada. Em caso de erro, lança uma exceção que sera tratada no catch.
+            if (!existingTasks.length) throw new errorHandler.notFound('Tarefa(s) não encontrada(s)');
+            for (const task of existingTasks) {
+                const taskFound = existingTasks.find(t => t.id == task.id);
                 if (taskFound)
                     foundTasks.push(taskFound.id);
             }
             // Verifica se todos os lembretes foram encontrados. Adiciona uma mensagem de erro informando quais, caso um ou mais não sejam encontrados.
-            if (existingTask.length != idsList.length) responseObject.errors.push(`Apenas a(s) tarefa(s) de id ${foundTasks.join(', ')} foi(ram) encontrada(s). Somente essa(s) foi(ram) excluída(s).`);
+            if (existingTasks.length != idsList.length) responseObject.errors.push(`Apenas a(s) tarefa(s) de id ${foundTasks.join(', ')} foi(ram) encontrada(s). Somente essa(s) foi(ram) excluída(s).`);
             // Chama o método do repositório responsável por excluir as tarefas. Em caso de erro, lança uma exceção que será tratada no catch.
             const deletedTasks = await taskRepository.deleteTasks(idsList, user_id);
             if (!deletedTasks.length) throw new errorHandler.internalError('Erro ao deletar uma ou mais tarefas. O estado anterior será retornado.');

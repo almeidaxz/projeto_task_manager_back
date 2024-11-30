@@ -68,6 +68,8 @@ class ReminderService {
             // Chama o método do repositório responsável por buscar a lista de lembretes. Adiciona os ids que foram encontrados na lista de ids à serem excluídos.
             const foundReminders = [];
             const existingReminders = await reminderRepository.getReminderListById(idsList, user_id);
+            // Verifica se ao menos um lembrete foi encontrado. Em caso de erro, lança uma exceção que sera tratada no catch.
+            if (!existingReminders.length) throw new errorHandler.notFound('Lembrete(s) não encontrado(s)');
             for (const reminder of existingReminders) {
                 const reminderFound = existingReminders.find(t => t.id == reminder.id);
                 if (reminderFound)

@@ -42,11 +42,12 @@ class TaskController {
     // Responde com a lista de tarefas excluídas ou um erro.
     async deleteTask(req, res) {
         const user_id = req.user.id;
-        const query = req.query;
+        const query = req.query.id;
         const idList = [];
-
-        for (const [key, value] of Object.entries(query)) {
-            idList.push(value);
+        if (typeof query === 'object') {
+            idList.push(...query);
+        } else {
+            idList.push(query);
         }
 
         try {
